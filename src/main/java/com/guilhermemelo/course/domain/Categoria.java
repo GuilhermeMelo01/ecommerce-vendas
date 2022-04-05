@@ -1,5 +1,6 @@
 package com.guilhermemelo.course.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Categoria implements Serializable {
     private Integer id;
     private String name;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "categorias") // NOW, EU APENAS DEFINO ONDE FOI FEITO MEU MAPEAMENTO DOS PRODUTOS
     private List<Produto> produtos = new ArrayList<>();
 

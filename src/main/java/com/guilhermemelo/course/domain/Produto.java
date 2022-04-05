@@ -1,5 +1,7 @@
 package com.guilhermemelo.course.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,6 +20,7 @@ public class Produto implements Serializable {
     private String nome;
     private Double preco;
 
+    @JsonBackReference
     @ManyToMany
     // FAZ O MAPEAMENTO DA MINHA LISTA DE CATEGORIAS, E INFORMA QUAL É MINHA TABELA DO BANCO DE DADOS
     // QUE CONTEM MINHAS CHAVES ESTRANGEIRAS DAS MINHAS DUAS ENTITY (CATEGORIA E PRODUTO).
