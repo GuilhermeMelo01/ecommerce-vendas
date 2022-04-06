@@ -24,6 +24,8 @@ public class Cliente implements Serializable {
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @ElementCollection()
+    @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
     public Cliente(){
