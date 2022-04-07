@@ -10,11 +10,12 @@ import java.util.Objects;
 public class Pagamento implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private EstadoPagamento estado;
 
-    @OneToOne(mappedBy = "pagamento")
+    @OneToOne
+    @JoinColumn(name = "pedido_id")
+    @MapsId
     private Pedido pedido;
 
     public Pagamento(){

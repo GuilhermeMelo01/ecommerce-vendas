@@ -13,8 +13,8 @@ public class Pedido implements Serializable {
     private Integer id;
     private Date instante;
 
-    @OneToOne
-    @JoinColumn(name = "pagamento_id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") //necessario para evitar erros de entidande transiente quando for
+                                        // salvar um pedido e o pagamento dele
     private Pagamento pagamento;
 
     @OneToMany
