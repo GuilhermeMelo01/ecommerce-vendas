@@ -1,12 +1,19 @@
 package com.guilhermemelo.course.domain;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class ItemPedido implements Serializable {
 
-    private ItemPedidoPK id = new ItemPedidoPK();
+    @Serial
+    private static final long serialVersionUID = 1L;
 
+    @EmbeddedId //Anotacao de um Id embutido em uma classe auxiliar
+    private ItemPedidoPK id = new ItemPedidoPK();
 
     private Double desconto;
     private Integer quantidade;
@@ -16,6 +23,7 @@ public class ItemPedido implements Serializable {
     }
 
     public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
+        super();
         id.setPedido(pedido);
         id.setProduto(produto);
         this.desconto = desconto;

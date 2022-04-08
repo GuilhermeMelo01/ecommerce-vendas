@@ -1,6 +1,7 @@
 package com.guilhermemelo.course.domain;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -10,13 +11,15 @@ import java.util.Set;
 @Entity
 public class Pedido implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Date instante;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") //necessario para evitar erros de entidande transiente quando for
-                                        // salvar um pedido e o pagamento dele
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") //necessario para evitar erros de entidande transiente quando for// salvar um pedido e o pagamento dele
     private Pagamento pagamento;
 
     @ManyToOne
@@ -27,12 +30,14 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "enderenco_de_entrega_id")
     private Endereco enderecoDeEntrega;
 
+    @OneToMany(mappedBy="id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() {
     }
 
     public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+        super();
         this.id = id;
         this.instante = instante;
         this.cliente = cliente;

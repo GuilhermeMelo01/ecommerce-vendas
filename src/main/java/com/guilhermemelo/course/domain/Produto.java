@@ -29,6 +29,7 @@ public class Produto implements Serializable {
     )
     private List<Categoria> categorias = new ArrayList<>();
 
+    @OneToMany(mappedBy ="id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
 
 
@@ -88,6 +89,7 @@ public class Produto implements Serializable {
     public void setItens(Set<ItemPedido> itens) {
         this.itens = itens;
     }
+
 
     @Override
     public boolean equals(Object o) {
