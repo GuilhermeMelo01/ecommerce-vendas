@@ -17,19 +17,20 @@ public class Pedido implements Serializable {
                                         // salvar um pedido e o pagamento dele
     private Pagamento pagamento;
 
-    @OneToMany
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "enderenco_de_entrega_id")
     private Endereco enderecoDeEntrega;
 
     public Pedido() {
     }
 
-    public Pedido(Integer id, Date instante, Pagamento pagamento, Cliente cliente, Endereco enderecoDeEntrega) {
+    public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
         this.id = id;
         this.instante = instante;
-        this.pagamento = pagamento;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
     }

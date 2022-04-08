@@ -7,7 +7,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Pagamento implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Pagamento implements Serializable {
 
     @Id
     private Integer id;
