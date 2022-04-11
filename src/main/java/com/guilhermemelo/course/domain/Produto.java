@@ -20,10 +20,9 @@ public class Produto implements Serializable {
     private String nome;
     private Double preco;
 
-    @JsonBackReference
-    @ManyToMany
-    // FAZ O MAPEAMENTO DA MINHA LISTA DE CATEGORIAS, E INFORMA QUAL É MINHA TABELA DO BANCO DE DADOS
-    // QUE CONTEM MINHAS CHAVES ESTRANGEIRAS DAS MINHAS DUAS ENTITY (CATEGORIA E PRODUTO).
+    @JsonIgnore
+    @ManyToMany // FAZ O MAPEAMENTO DA MINHA LISTA DE CATEGORIAS, E INFORMA QUAL É MINHA TABELA DO BANCO DE DADOS
+                // QUE CONTEM MINHAS CHAVES ESTRANGEIRAS DAS MINHAS DUAS ENTITY (CATEGORIA E PRODUTO).
     @JoinTable(name = "PRODUTO_CATEGORIA",
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id")
@@ -31,7 +30,7 @@ public class Produto implements Serializable {
     private List<Categoria> categorias = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy ="id.produto")
+    @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
 
 
@@ -45,9 +44,9 @@ public class Produto implements Serializable {
     }
 
     @JsonIgnore
-    public List<Pedido> getPedidos(){
+    public List<Pedido> getPedidos() {
         List<Pedido> lista = new ArrayList<>();
-        for (ItemPedido iten : itens){
+        for (ItemPedido iten : itens) {
             lista.add(iten.getPedido());
         }
         return lista;
