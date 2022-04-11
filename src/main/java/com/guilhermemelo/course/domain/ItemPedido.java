@@ -1,5 +1,7 @@
 package com.guilhermemelo.course.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serial;
@@ -12,6 +14,7 @@ public class ItemPedido implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore //Vai ser ignorado pelo Json
     @EmbeddedId //Anotacao de um Id embutido em uma classe auxiliar
     private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -31,6 +34,7 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public Pedido getPedido(){
         return id.getPedido();
     }
