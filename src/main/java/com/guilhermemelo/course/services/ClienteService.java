@@ -14,7 +14,7 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Cliente buscarId(Integer id) {
+    public Cliente findById(Integer id) {
         Optional<Cliente> clienteId = clienteRepository.findById(id);
         return clienteId.orElseThrow(() -> new ObjectNotFoundException("Object is not valid!"));
     }

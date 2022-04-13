@@ -15,7 +15,7 @@ public class CategoriaService {
     //instanciada pelo o Spring(Injeção de Dependencia ou Inversao de Controle)
     private CategoriaRepository repository;
 
-    public Categoria buscar(Integer id) {
+    public Categoria findById(Integer id) {
         Optional<Categoria> categoriaId = repository.findById(id);
         return categoriaId.orElseThrow(() -> new ObjectNotFoundException("Object não encontrado! Id: " + id +
                 ", Tipo: " + Categoria.class.getName()));
@@ -23,6 +23,11 @@ public class CategoriaService {
 
     public Categoria insert(Categoria categoria){
         categoria.setId(null);
+        return repository.save(categoria);
+    }
+
+    public Categoria update(Categoria categoria){
+        findById(categoria.getId());
         return repository.save(categoria);
     }
 
