@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,5 +41,10 @@ public class CategoriaService {
             throw new DataIntegrityViolationException("Não é possivel apagar a categoria com produtos associados");
         }
     }
+
+    public List<Categoria> findAll() {
+        return repository.findAll();
+    }
+
 
 }

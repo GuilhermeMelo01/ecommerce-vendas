@@ -1,6 +1,7 @@
 package com.guilhermemelo.course.resources;
 
 import com.guilhermemelo.course.domain.Categoria;
+import com.guilhermemelo.course.dto.CategoriaDTO;
 import com.guilhermemelo.course.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -17,7 +21,7 @@ public class CategoriaResource {
     private CategoriaService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Categoria> find(@PathVariable Integer id) {
+    public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
 
         Categoria findByid = service.findById(id);
 
@@ -46,6 +50,15 @@ public class CategoriaResource {
         return ResponseEntity.noContent().build();
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+
+        List<Categoria> list = service.findAll();
+
+        List<CategoriaDTO> listDto = list.stream().map(CategoriaDTO::new).toList();
+
+        return ResponseEntity.ok().body(listDto);
+    }
 
 
 }
