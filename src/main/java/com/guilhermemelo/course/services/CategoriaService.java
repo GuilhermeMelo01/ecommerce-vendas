@@ -1,6 +1,7 @@
 package com.guilhermemelo.course.services;
 
 import com.guilhermemelo.course.domain.Categoria;
+import com.guilhermemelo.course.dto.CategoriaDTO;
 import com.guilhermemelo.course.repositories.CategoriaRepository;
 import com.guilhermemelo.course.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,10 @@ public class CategoriaService {
         PageRequest pageRequest = PageRequest.of(page, linePerPage, Sort.Direction.valueOf(direction), orderBy);
         return repository.findAll(pageRequest);
 
+    }
+
+    public Categoria fromDto(CategoriaDTO categoriaDTO){
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getName());
     }
 
 
