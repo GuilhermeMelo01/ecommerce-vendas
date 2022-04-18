@@ -1,6 +1,5 @@
 package com.guilhermemelo.course.resources;
 
-import com.guilhermemelo.course.domain.Categoria;
 import com.guilhermemelo.course.domain.Cliente;
 import com.guilhermemelo.course.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,9 @@ public class ClienteResource {
     private ClienteService clienteService;
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> findById(@PathVariable Integer id){
+    public ResponseEntity<Cliente> findById(@PathVariable Integer id){
 
-        Cliente clienteId = clienteService.buscarId(id);
+        Cliente clienteId = clienteService.findById(id);
 
         return ResponseEntity.ok().body(clienteId);
 
