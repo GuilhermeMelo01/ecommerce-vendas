@@ -1,8 +1,6 @@
 package com.guilhermemelo.course.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.guilhermemelo.course.enums.TipoCliente;
 
 import javax.persistence.*;
@@ -19,7 +17,7 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nome;
+    private String name;
     private String email;
     private String cpfOuCnpj;
     private  Integer tipoCliente;
@@ -38,12 +36,12 @@ public class Cliente implements Serializable {
     public Cliente(){
     }
 
-    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+    public Cliente(Integer id, String name, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipoCliente = tipoCliente.getCod();
+        this.tipoCliente = (tipoCliente == null ) ? null : tipoCliente.getCod();
     }
 
     public Integer getId() {
@@ -54,12 +52,12 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
