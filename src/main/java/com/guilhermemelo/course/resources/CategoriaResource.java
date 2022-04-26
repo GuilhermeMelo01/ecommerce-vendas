@@ -1,7 +1,7 @@
 package com.guilhermemelo.course.resources;
 
 import com.guilhermemelo.course.domain.Categoria;
-import com.guilhermemelo.course.dto.CategoriaDTO;
+import com.guilhermemelo.course.dto.CategoriaDto;
 import com.guilhermemelo.course.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,9 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -31,7 +29,7 @@ public class CategoriaResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO categoriaDto) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDto categoriaDto) {
         Categoria categoria = service.fromDto(categoriaDto);
         categoria = service.insert(categoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -40,7 +38,7 @@ public class CategoriaResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO categoriaDto,  @PathVariable Integer id) {
+    public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDto categoriaDto, @PathVariable Integer id) {
         Categoria categoria = service.fromDto(categoriaDto);
         categoria.setId(id);
         categoria = service.update(categoria);
@@ -55,17 +53,17 @@ public class CategoriaResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<CategoriaDTO>> findAll() {
+    public ResponseEntity<List<CategoriaDto>> findAll() {
 
         List<Categoria> list = service.findAll();
 
-        List<CategoriaDTO> listDto = list.stream().map(CategoriaDTO::new).toList();
+        List<CategoriaDto> listDto = list.stream().map(CategoriaDto::new).toList();
 
         return ResponseEntity.ok().body(listDto);
     }
 
     @RequestMapping(value="/page", method = RequestMethod.GET)
-    public ResponseEntity<Page<CategoriaDTO>> findPage(
+    public ResponseEntity<Page<CategoriaDto>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linePerPage", defaultValue = "24")Integer linePerPage,
             @RequestParam(value = "orderBy", defaultValue = "name")String orderBy,
@@ -73,7 +71,7 @@ public class CategoriaResource {
 
         Page<Categoria> listPage = service.findByPage(page, linePerPage, orderBy, direction);
 
-        Page<CategoriaDTO> pageDto = listPage.map(CategoriaDTO::new);
+        Page<CategoriaDto> pageDto = listPage.map(CategoriaDto::new);
 
         return ResponseEntity.ok().body(pageDto);
     }

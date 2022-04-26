@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-public class ClienteDTO implements Serializable {
+public class ClienteDto implements Serializable {
 
     private Integer id;
     @NotEmpty(message = "name is not must be empty!")
@@ -19,10 +19,10 @@ public class ClienteDTO implements Serializable {
     private String email;
 
 
-    public ClienteDTO(){
+    public ClienteDto(){
     }
 
-    public ClienteDTO(Cliente cliente) {
+    public ClienteDto(Cliente cliente) {
         id = cliente.getId();
         name = cliente.getName();
         email = cliente.getEmail();
