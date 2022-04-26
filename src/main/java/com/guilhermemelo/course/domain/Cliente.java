@@ -20,9 +20,10 @@ public class Cliente implements Serializable {
     private String name;
     private String email;
     private String cpfOuCnpj;
-    private  Integer tipoCliente;
+    private Integer tipoCliente;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) //cascade = CascadeType.ALL
+    // permite a deleção de clientes com enderecos relacionados
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection()
@@ -33,7 +34,7 @@ public class Cliente implements Serializable {
     @OneToMany
     private List<Pedido> pedidos = new ArrayList<>();
 
-    public Cliente(){
+    public Cliente() {
     }
 
     public Cliente(Integer id, String name, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
@@ -41,7 +42,7 @@ public class Cliente implements Serializable {
         this.name = name;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipoCliente = (tipoCliente == null ) ? null : tipoCliente.getCod();
+        this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCod();
     }
 
     public Integer getId() {
