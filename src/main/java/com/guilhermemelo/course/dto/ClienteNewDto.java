@@ -1,23 +1,38 @@
 package com.guilhermemelo.course.dto;
 
+import com.guilhermemelo.course.services.validaton.ClienteInsert;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteInsert
 public class ClienteNewDto implements Serializable {
 
     //Cliente
-    private String name;
+    @NotEmpty(message = "this field is not must be empty!")
+    @Length(min = 5, max = 120, message = "size must be between 5 and 120")
+    private String nome;
+    @NotEmpty(message = "this field is not must be empty!")
+    @Email(message = "email is not valid!")
     private String email;
+    @NotEmpty(message = "this field is not must be empty!")
     private String cpfOuCnpj;
-    private  Integer tipoCliente;
+    private Integer tipoCliente;
 
     //Endereco
+    @NotEmpty(message = "this field is not must be empty!")
     private String logradouro;
+    @NotEmpty(message = "this field is not must be empty!")
     private String numero;
     private String complemento;
     private String bairro;
+    @NotEmpty(message = "this field is not must be empty!")
     private String cep;
 
     //Telefone
+    @NotEmpty(message = "this field is not must be empty!")
     private String telefone1;
     private String telefone2;
     private String telefone3;
@@ -25,15 +40,15 @@ public class ClienteNewDto implements Serializable {
     //Cidade
     private Integer cidadeId;
 
-    public ClienteNewDto(){
+    public ClienteNewDto() {
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {

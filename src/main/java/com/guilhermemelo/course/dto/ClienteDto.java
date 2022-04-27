@@ -10,11 +10,11 @@ import java.io.Serializable;
 public class ClienteDto implements Serializable {
 
     private Integer id;
-    @NotEmpty(message = "name is not must be empty!")
+    @NotEmpty(message = "this field is not must be empty!")
     @Length(min = 5, max = 120, message = "size must be between 5 and 120")
-    private String name;
+    private String nome;
 
-    @NotEmpty(message = "name is not must be empty!")
+    @NotEmpty(message = "this field is not must be empty!")
     @Email(message = "email is not valid!")
     private String email;
 
@@ -24,7 +24,7 @@ public class ClienteDto implements Serializable {
 
     public ClienteDto(Cliente cliente) {
         id = cliente.getId();
-        name = cliente.getName();
+        nome = cliente.getName();
         email = cliente.getEmail();
     }
 
@@ -36,12 +36,12 @@ public class ClienteDto implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {

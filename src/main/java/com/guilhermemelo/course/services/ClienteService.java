@@ -68,11 +68,11 @@ public class ClienteService {
     }
 
     public Cliente fromDto(ClienteDto clienteDTO) {
-        return new Cliente(clienteDTO.getId(), clienteDTO.getName(), clienteDTO.getEmail(), null, null);
+        return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null);
     }
 
     public Cliente fromDto(ClienteNewDto objDto) {
-        Cliente cliente = new Cliente(null, objDto.getName(), objDto.getEmail(), objDto.getCpfOuCnpj()
+        Cliente cliente = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj()
                 , TipoCliente.toEnum(objDto.getTipoCliente()));
         Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
         Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento()
