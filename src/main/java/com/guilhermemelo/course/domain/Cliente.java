@@ -18,6 +18,8 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    @Column(unique = true) //Faz com que o campo email não possa recebar emails repetidos
     private String email;
     private String cpfOuCnpj;
     private Integer tipoCliente;
