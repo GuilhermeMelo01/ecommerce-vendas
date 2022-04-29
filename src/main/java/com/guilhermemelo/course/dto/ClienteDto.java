@@ -1,12 +1,14 @@
 package com.guilhermemelo.course.dto;
 
 import com.guilhermemelo.course.domain.Cliente;
+import com.guilhermemelo.course.services.validaton.ClienteUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteUpdate
 public class ClienteDto implements Serializable {
 
     private Integer id;
@@ -15,7 +17,7 @@ public class ClienteDto implements Serializable {
     private String nome;
 
     @NotEmpty(message = "this field is not must be empty!")
-    @Email(message = "email is not valid!")
+    @Email(message = "email is not valid!") 
     private String email;
 
 
