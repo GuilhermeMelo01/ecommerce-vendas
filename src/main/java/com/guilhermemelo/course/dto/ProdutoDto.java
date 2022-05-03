@@ -1,6 +1,10 @@
 package com.guilhermemelo.course.dto;
 
-public class ProdutoDto {
+import com.guilhermemelo.course.domain.Produto;
+
+import java.io.Serializable;
+
+public class ProdutoDto implements Serializable {
 
     private Integer id;
     private String nome;
@@ -8,6 +12,13 @@ public class ProdutoDto {
 
     public ProdutoDto() {
     }
+
+    public ProdutoDto(Produto obj){
+        id = obj.getId();
+        nome = obj.getNome();
+        preco = obj.getPreco();
+    }
+
 
     public Integer getId() {
         return id;
