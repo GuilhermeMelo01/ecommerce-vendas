@@ -14,7 +14,7 @@
     <name>springboot-udemy</name>
     <description>Project Spring-Boot</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <version>2.6.6</version>
+            <version>2.6.7</version>
         </dependency>
 
 		<dependency>
