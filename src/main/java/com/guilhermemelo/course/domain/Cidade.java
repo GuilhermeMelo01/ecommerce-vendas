@@ -1,18 +1,13 @@
 package com.guilhermemelo.course.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 public class Cidade implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+
 
     @Id
     @GeneratedValue

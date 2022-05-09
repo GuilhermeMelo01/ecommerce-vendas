@@ -3,7 +3,6 @@ package com.guilhermemelo.course.domain;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,8 +10,7 @@ import java.util.Objects;
 @Embeddable //Essa anotação serve para mostrar que essa classe é um subtipo
 public class ItemPedidoPK implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
