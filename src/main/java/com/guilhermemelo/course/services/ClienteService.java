@@ -90,7 +90,7 @@ public class ClienteService {
     }
 
     private void updateData(Cliente newCliente, Cliente cliente) {
-        newCliente.setName(cliente.getName());
+        newCliente.setNome(cliente.getNome());
         newCliente.setEmail(cliente.getEmail());
     }
 }
