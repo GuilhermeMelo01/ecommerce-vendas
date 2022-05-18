@@ -94,7 +94,7 @@ public class DBService {
 
 
         Cliente cli1 = new Cliente(
-                null, "Guilherme", "Guilherme2001@gmail.com",
+                null, "Guilherme", "guiiMel02001@gmail.com",
                 "758237529", TipoCliente.PESSOAFISICA);
         cli1.getTelefones().addAll(Arrays.asList("92408103", "93218213"));
 

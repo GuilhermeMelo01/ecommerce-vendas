@@ -1,6 +1,8 @@
 package com.guilhermemelo.course.config;
 
 import com.guilhermemelo.course.services.DBService;
+import com.guilhermemelo.course.services.EmailService;
+import com.guilhermemelo.course.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -26,8 +28,12 @@ public class DevConfig {
             dbService.instantiateTestDatabase();
             return true;
         }
-
         return false;
+    }
+
+    @Bean
+    public EmailService emailService(){
+        return new SmtpEmailService();
     }
 
 
