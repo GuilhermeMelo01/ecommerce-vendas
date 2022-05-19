@@ -2,6 +2,7 @@ package com.guilhermemelo.course.services;
 
 import com.guilhermemelo.course.domain.*;
 import com.guilhermemelo.course.enums.EstadoPagamento;
+import com.guilhermemelo.course.enums.Perfil;
 import com.guilhermemelo.course.enums.TipoCliente;
 import com.guilhermemelo.course.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,8 +100,14 @@ public class DBService {
 
         Cliente cli1 = new Cliente(
                 null, "Guilherme", "guiiMel02001@gmail.com",
-                "758237529", TipoCliente.PESSOAFISICA, passwordEncoder.encode("123"));
+                "13568452073", TipoCliente.PESSOAFISICA, passwordEncoder.encode("123"));
         cli1.getTelefones().addAll(Arrays.asList("92408103", "93218213"));
+
+        Cliente cli2 = new Cliente(
+                null, "Ana Costa", "meloguilherme1994@gmail.com",
+                "54051804089", TipoCliente.PESSOAFISICA, passwordEncoder.encode("123"));
+        cli2.getTelefones().addAll(Arrays.asList("9240442323", "344218213"));
+        cli2.addPerfil(Perfil.ADMIN);
 
         Endereco e1 = new Endereco(null, "Rua Flores", "300",
                 "Apto 203", "Jardim", "849308290", cli1, c1);
@@ -108,10 +115,14 @@ public class DBService {
         Endereco e2 = new Endereco(null, "Avenida Matos", "804",
                 "Sala 400", "Palmirim", "610032480", cli1, c2);
 
-        cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+        Endereco e3 = new Endereco(null, "Rua Mata Mouros", "344",
+                "Sala 349", "Fazenda Bela Vista", "430843080", cli2, c2);
 
-        clienteRepository.saveAll(Arrays.asList(cli1));
-        enderecoRepository.saveAll(Arrays.asList(e1, e2));
+        cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+        cli2.getEnderecos().addAll(Arrays.asList(e3));
+
+        clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+        enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
