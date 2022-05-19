@@ -14,27 +14,39 @@ public class ClienteNewDto implements Serializable {
     @NotEmpty(message = "this field is not must be empty!")
     @Length(min = 5, max = 120, message = "size must be between 5 and 120")
     private String nome;
+
     @NotEmpty(message = "this field is not must be empty!")
     @Email(message = "email is not valid!")
     private String email;
+
     @NotEmpty(message = "this field is not must be empty!")
     private String cpfOuCnpj;
+
     private Integer tipoCliente;
+
+    @NotEmpty
+    private String senha;
 
     //Endereco
     @NotEmpty(message = "this field is not must be empty!")
     private String logradouro;
+
     @NotEmpty(message = "this field is not must be empty!")
     private String numero;
+
     private String complemento;
+
     private String bairro;
+
     @NotEmpty(message = "this field is not must be empty!")
     private String cep;
 
     //Telefone
     @NotEmpty(message = "this field is not must be empty!")
     private String telefone1;
+
     private String telefone2;
+
     private String telefone3;
 
     //Cidade
@@ -73,6 +85,14 @@ public class ClienteNewDto implements Serializable {
 
     public void setTipoCliente(Integer tipoCliente) {
         this.tipoCliente = tipoCliente;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getLogradouro() {
