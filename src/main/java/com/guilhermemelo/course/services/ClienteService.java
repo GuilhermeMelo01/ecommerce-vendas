@@ -5,9 +5,12 @@ import com.guilhermemelo.course.domain.Cliente;
 import com.guilhermemelo.course.domain.Endereco;
 import com.guilhermemelo.course.dto.ClienteDto;
 import com.guilhermemelo.course.dto.ClienteNewDto;
+import com.guilhermemelo.course.enums.Perfil;
 import com.guilhermemelo.course.enums.TipoCliente;
 import com.guilhermemelo.course.repositories.ClienteRepository;
 import com.guilhermemelo.course.repositories.EnderecoRepository;
+import com.guilhermemelo.course.security.UserSS;
+import com.guilhermemelo.course.services.exception.AuthorizationException;
 import com.guilhermemelo.course.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -34,6 +37,11 @@ public class ClienteService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public Cliente findById(Integer id) {
+        UserSS user = UserService.authenticated();
+        if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+            throw new AuthorizationException("Acesso negado");
+        }
+
         Optional<Cliente> clienteId = clienteRepository.findById(id);
         return clienteId.orElseThrow(() -> new ObjectNotFoundException("Object is not valid!"));
     }
