@@ -1,15 +1,18 @@
 package com.guilhermemelo.course.services;
 
-import com.guilhermemelo.course.domain.ItemPedido;
-import com.guilhermemelo.course.domain.PagamentoComBoleto;
-import com.guilhermemelo.course.domain.Pedido;
+import com.guilhermemelo.course.domain.*;
 import com.guilhermemelo.course.enums.EstadoPagamento;
 import com.guilhermemelo.course.repositories.ClienteRepository;
 import com.guilhermemelo.course.repositories.ItemPedidoRepository;
 import com.guilhermemelo.course.repositories.PagamentoRepository;
 import com.guilhermemelo.course.repositories.PedidoRepository;
+import com.guilhermemelo.course.security.UserSS;
+import com.guilhermemelo.course.services.exception.AuthorizationException;
 import com.guilhermemelo.course.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,4 +74,13 @@ public class PedidoService {
         return obj;
     }
 
+    public Page<Pedido> findByPage(Integer page, Integer linePerPage, String orderBy, String direction){
+        UserSS user = UserService.authenticated();
+        if(user == null) {
+            throw new AuthorizationException("Acesso negado");
+        }
+        PageRequest pageRequest = PageRequest.of(page, linePerPage, Sort.Direction.valueOf(direction), orderBy);
+        Cliente cliente = clienteService.findById(user.getId());
+        return pedidoRepository.findByCliente(cliente, pageRequest);
+    }
 }

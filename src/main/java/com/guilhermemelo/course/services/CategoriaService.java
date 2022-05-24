@@ -17,8 +17,7 @@ import java.util.Optional;
 @Service
 public class CategoriaService {
 
-    @Autowired //Essa dependencia vai ser automaticamente
-    //instanciada pelo o Spring(Injeção de Dependencia ou Inversao de Controle)
+    @Autowired
     private CategoriaRepository repository;
 
     public Categoria findById(Integer id) {
