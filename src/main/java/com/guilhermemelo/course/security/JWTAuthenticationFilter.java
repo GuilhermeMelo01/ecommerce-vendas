@@ -2,7 +2,6 @@ package com.guilhermemelo.course.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.guilhermemelo.course.dto.CrendenciasDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -57,7 +56,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
         String username = ((UserSS) auth.getPrincipal()).getUsername();
-        String token = jwtUtil.generatedToken(username);
+        String token = jwtUtil.generateToken(username);
         res.addHeader("Authorization", "Bearer " + token);
     }
 
