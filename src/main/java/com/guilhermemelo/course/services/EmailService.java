@@ -1,5 +1,6 @@
 package com.guilhermemelo.course.services;
 
+import com.guilhermemelo.course.domain.Cliente;
 import com.guilhermemelo.course.domain.Pedido;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -14,4 +15,6 @@ public interface EmailService {
     void sendOrderConfirmationHtmlEmail(Pedido obj);
 
     void sendHtmlEmail(MimeMessage msg);
+
+    void sendNewPasswordEmail(Cliente cliente, String newPass);
 }
