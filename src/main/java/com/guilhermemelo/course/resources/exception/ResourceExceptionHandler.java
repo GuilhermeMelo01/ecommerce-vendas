@@ -76,6 +76,6 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> amazonS3(AmazonS3Exception onfe, HttpServletRequest request) {
 
         StandardError stde = new StandardError(HttpStatus.BAD_REQUEST.value(), onfe.getMessage(), System.currentTimeMillis());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(stde);x
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(stde);
     }
 }
