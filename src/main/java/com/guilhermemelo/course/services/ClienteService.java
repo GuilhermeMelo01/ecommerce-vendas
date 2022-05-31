@@ -49,12 +49,12 @@ public class ClienteService {
     @Value("${img.prefix.client.profile}")
     private String prefix;
 
-  @Value("${img.profile.size}")
+    @Value("${img.profile.size}")
     private Integer size;
 
     public Cliente findById(Integer id) {
         UserSS user = UserService.authenticated();
-        if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+        if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
             throw new AuthorizationException("Acesso negado");
         }
 
@@ -95,6 +95,20 @@ public class ClienteService {
 
     }
 
+    public Cliente findByEmail(String email) {
+        UserSS user = UserService.authenticated();
+        if (user == null || !user.hasRole(Perfil.ADMIN) && !user.equals(user.getUsername())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
+        Cliente obj = clienteRepository.findByEmail(email);
+        if (obj == null) {
+            throw new ObjectNotFoundException("Objeto não encontrado! Id: " + user.getId() + ", " +
+                    "Tipo: " + Cliente.class.getName());
+        }
+        return obj;
+    }
+
     public Cliente fromDto(ClienteDto clienteDTO) {
         return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null, null);
     }
@@ -107,10 +121,10 @@ public class ClienteService {
                 , objDto.getBairro(), objDto.getCep(), cliente, cidade);
         cliente.getEnderecos().add(endereco);
         cliente.getTelefones().add(objDto.getTelefone1());
-        if(objDto.getTelefone2() != null){
+        if (objDto.getTelefone2() != null) {
             cliente.getTelefones().add(objDto.getTelefone2());
         }
-        if (objDto.getTelefone3() != null){
+        if (objDto.getTelefone3() != null) {
             cliente.getTelefones().add(objDto.getTelefone3());
         }
 
@@ -122,10 +136,10 @@ public class ClienteService {
         newCliente.setEmail(cliente.getEmail());
     }
 
-    public URI uploadProfilePicture(MultipartFile multipartFile){
+    public URI uploadProfilePicture(MultipartFile multipartFile) {
         UserSS user = UserService.authenticated();
-        if (user == null){
-            throw  new AuthorizationException("Acesso negado");
+        if (user == null) {
+            throw new AuthorizationException("Acesso negado");
         }
 
         BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
