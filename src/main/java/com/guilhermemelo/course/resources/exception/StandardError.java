@@ -1,31 +1,21 @@
 package com.guilhermemelo.course.resources.exception;
 
-public class StandardError {
+import java.io.Serializable;
 
-    private Integer Status;
-    private String String;
+public class StandardError implements Serializable {
+
     private Long timeStamp;
+    private Integer status;
+    private String error;
+    private String message;
+    private String path;
 
-    public StandardError(Integer status, java.lang.String string, Long timeStamp) {
-        Status = status;
-        String = string;
+    public StandardError(Long timeStamp, Integer status, String error, String message, String path) {
         this.timeStamp = timeStamp;
-    }
-
-    public Integer getStatus() {
-        return Status;
-    }
-
-    public void setStatus(Integer status) {
-        Status = status;
-    }
-
-    public java.lang.String getString() {
-        return String;
-    }
-
-    public void setString(java.lang.String string) {
-        String = string;
+        this.status = status;
+        this.error = error;
+        this.message = message;
+        this.path = path;
     }
 
     public Long getTimeStamp() {
@@ -34,5 +24,37 @@ public class StandardError {
 
     public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
