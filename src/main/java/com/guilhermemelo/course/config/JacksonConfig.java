@@ -6,6 +6,8 @@ import com.guilhermemelo.course.domain.PagamentoComCartao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class JacksonConfig {
@@ -20,6 +22,11 @@ public class JacksonConfig {
             }
         };
         return builder;
+    }
+
+    @Bean
+    public JavaMailSender jMS (){
+        return new JavaMailSenderImpl();
     }
 
 }
