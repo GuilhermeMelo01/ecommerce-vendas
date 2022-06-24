@@ -1,14 +1,14 @@
 package com.guilhermemelo.course.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.guilhermemelo.course.enums.Perfil;
 import com.guilhermemelo.course.enums.TipoCliente;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Cliente implements Serializable {
@@ -20,30 +20,43 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+
+    @Column(unique = true) //Faz com que o campo email não possa recebar emails repetidos
     private String email;
     private String cpfOuCnpj;
-    private  Integer tipoCliente;
+    private Integer tipoCliente;
 
-    @OneToMany(mappedBy = "cliente")
+    @JsonIgnore //Para ignorar na recuperação de dados
+    private String senha;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) //cascade = CascadeType.ALL
+    // permite a deleção de clientes com enderecos relacionados
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection()
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PERFIS")
+    private Set<Integer> perfis = new HashSet<>();
+
     @JsonIgnore
     @OneToMany
     private List<Pedido> pedidos = new ArrayList<>();
 
-    public Cliente(){
+    public Cliente() {
+        addPerfil(Perfil.CLIENTE);
     }
 
-    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipoCliente = tipoCliente.getCod();
+        this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCod();
+        this.senha = senha;
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Integer getId() {
@@ -109,6 +122,37 @@ public class Cliente implements Serializable {
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
+
+    public void setTipoCliente(Integer tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Set<Perfil> getPerfis(){
+        /* Está pegando cod dos perfis e retornando um Set<Perfil> */
+        return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
+
+        /*
+        Set<Perfil> perfils = new HashSet<>();
+        for (Integer cod : perfis) {
+            Perfil perfil = Perfil.toEnum(cod);
+            perfils.add(perfil);
+        }
+        return perfils;
+         */
+    }
+
+    public void addPerfil(Perfil perfil){
+        perfis.add(perfil.getCod());
+    }
+
 
     @Override
     public boolean equals(Object o) {
