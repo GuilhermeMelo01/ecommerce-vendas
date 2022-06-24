@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS_GET = { // Vetor para definir os caminhos que sao publicos apenas para leitura
             "/produtos/**",
-            "/categorias/**"
+            "/categorias/**",
+            "/clientes/**"
     };
 
     @Override

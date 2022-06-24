@@ -2,6 +2,7 @@ package com.guilhermemelo.course.services;
 
 import com.guilhermemelo.course.domain.*;
 import com.guilhermemelo.course.enums.EstadoPagamento;
+import com.guilhermemelo.course.enums.Perfil;
 import com.guilhermemelo.course.enums.TipoCliente;
 import com.guilhermemelo.course.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class DBService {
@@ -101,21 +103,29 @@ public class DBService {
                 "758237529", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
         cli1.getTelefones().addAll(Arrays.asList("92408103", "93218213"));
 
-        Endereco e1 = new Endereco(null, "Rua Flores", "300",
+        Cliente cli2 = new Cliente(
+                null, "Ana", "anaCosta@gmail.com",
+                "00532462092", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
+        cli2.addPerfil(Perfil.ADMIN);
+        cli2.getTelefones().addAll(Arrays.asList("965968103", "93423813"));
+
+        Endereco end1 = new Endereco(null, "Rua Flores", "300",
                 "Apto 203", "Jardim", "849308290", cli1, c1);
-
-        Endereco e2 = new Endereco(null, "Avenida Matos", "804",
+        Endereco end2 = new Endereco(null, "Avenida Matos", "804",
                 "Sala 400", "Palmirim", "610032480", cli1, c2);
+        Endereco end3 = new Endereco(null, "Agustino Ferraz", "1022",
+                "proximo a Igreja Catolica", "Padre Julio Maria", "613982480", cli2, c2);
 
-        cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+        cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
+        cli2.getEnderecos().addAll(List.of(end3));
 
-        clienteRepository.saveAll(Arrays.asList(cli1));
-        enderecoRepository.saveAll(Arrays.asList(e1, e2));
+        clienteRepository.saveAll(List.of(cli1, cli2));
+        enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-        Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
-        Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+        Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, end1);
+        Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, end2);
 
         Pagamento pgt1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
         ped1.setPagamento(pgt1);
@@ -129,16 +139,16 @@ public class DBService {
         pagamentoRepository.saveAll(Arrays.asList(pgt1, pgt2));
 
 
-        ItemPedido ip1 = new ItemPedido(ped1, p1,0.00, 1, 2000.00);
-        ItemPedido ip2 = new ItemPedido(ped1, p3,0.00, 2, 80.00);
-        ItemPedido ip3 = new ItemPedido(ped2, p2,100.00, 1, 800.00);
+        ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+        ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+        ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
 
         ped1.getItens().addAll(Arrays.asList(ip1, ip2));
-        ped2.getItens().addAll(Arrays.asList(ip3));
+        ped2.getItens().addAll(List.of(ip3));
 
-        p1.getItens().addAll(Arrays.asList(ip1));
-        p2.getItens().addAll(Arrays.asList(ip3));
-        p3.getItens().addAll(Arrays.asList(ip2));
+        p1.getItens().addAll(List.of(ip1));
+        p2.getItens().addAll(List.of(ip3));
+        p3.getItens().addAll(List.of(ip2));
 
         itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
     }
