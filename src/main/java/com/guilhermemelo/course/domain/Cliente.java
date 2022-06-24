@@ -24,6 +24,9 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipoCliente;
 
+    @JsonIgnore //Para ignorar na recuperação de dados
+    private String senha;
+
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) //cascade = CascadeType.ALL
     // permite a deleção de clientes com enderecos relacionados
     private List<Endereco> enderecos = new ArrayList<>();
@@ -39,12 +42,13 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCod();
+        this.senha = senha;
     }
 
     public Integer getId() {
@@ -109,6 +113,18 @@ public class Cliente implements Serializable {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public void setTipoCliente(Integer tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     @Override
