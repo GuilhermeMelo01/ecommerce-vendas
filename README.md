@@ -7,9 +7,6 @@ Neste projeto foi feito uma aplicação de vendas com spring boot e segurança J
 
 Esse projeto possiu varias funções como fazer login, cadastro de usuário, fazer um pedido, fluxo completo de navegação de carrinho de compras, buscas personalizadas e modificações no pedido, cliente e produto.
 
-## Uml da aplicação
-![UML DO PROJETO](https://cdn.discordapp.com/attachments/937340483997421593/964159452817260604/unknown.png)
-
 # Tecnologias utilizadas
 ## Back end
 - Java
